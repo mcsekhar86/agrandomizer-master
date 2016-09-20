@@ -1,0 +1,129 @@
+<doctype !html>
+<html ng-app="randomApp" ng-cloak>
+<head>
+
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+  <title>  List Randomizer </title>
+
+
+</head>
+
+<body>
+
+  <div class="jumbotron jumbotron-fluid">
+  <div class="container-fluid text-center">
+    <h1 class="display-3"> List Randomizer</h1>
+    <p class="lead"> Use this site to randomize your list. Assign a priority to each item to allow varying probabilities.
+      Lists are stored on your browser and will be available as long as you don't clear your cache!
+      This is a work in progress test application and my first app using AngularJS.  </p>
+
+  </div>
+</div>
+
+<div ng-controller="randomCtrl">
+<div class="container text-center">
+
+
+<div ng-show="lists.length > 0 && !turnOnAdd">
+  <h1> <select id="selectList" class="btn btn-success" ng-model="selectedListId" ng-change="changeList()">
+    <option ng-repeat="cList in lists" value="{{cList.listId}}"> {{cList.listName}} </option>
+  </select> </h1>
+</div>
+  <a href="" ng-click="toggleAdd()"> Add </a>
+  <a href="" ng-click="toggleRename()"> Rename </a>
+  <a href="" ng-click="deleteList()"> Delete </a>
+
+  <div ng-show="turnOnAdd">
+      New List Name: <input type="textbox" ng-model="newListName"> </a>
+      <a href="" ng-click="addList()"> Save </a>
+   </div>
+  <p class="textcenter"> {{lastSaved}}</p>
+
+<div ng-show="lists.length > 0 && !turnOnAdd">
+  <table id="maintable" class="center" >
+    <tr>
+      <td>
+  <table id="itemtable" class="table">
+      <tr>
+        <th> # </th>
+        <th> Item Name
+        </th>
+        <th > Priority </th>
+      </tr>
+      <tr ng-repeat="item in lists[selectedListId].items track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
+        <td class="numbertextbox"> <input type="number" class="form-control" ng-model="item.position"> </td>
+        <td> <input type="textbox" class="form-control" ng-model="item.name"> </td>
+        <td class="numbertextbox"> <input type="number" class="form-control" ng-model="item.priority"> </td>
+       </tr>
+
+      </table>
+    </td>
+    <td ng-hide="hideButtons">
+      <button ng-click="moveUp()" class="btn btn-primary"> &#8593; </button>
+      <button ng-click="moveDown()" class="btn btn-primary"> &#8595; </button>
+    </td>
+  </tr>
+
+
+</table>
+<div> {{pasteText}} </div>
+<p>
+  <button ng-click="saveItems()" class="btn btn-primary"> Save List </button>
+    <button ng-click="copyClipboard()" class="btn btn-primary"> Copy List to Clipboard </button>
+  <button ng-click="undoChanges()" class="btn btn-primary"> Undo Changes </button>
+  <button ng-click="removeItem()" class="btn btn-primary"> Remove Item </button>
+  <button ng-click="equalWeight()" class="btn btn-primary"> Set Equal Weight </button>
+
+
+
+</p>
+New  item <input type="textbox" ng-model="newRecord" >
+<button ng-click="addRow()" class="btn btn-primary"> Add Row </button>
+
+
+    <h2> Generate Random items </h2>
+    <div class="row">
+      <div class="col-md-6">
+    Total Allocation: <input type="textbox" ng-model="maxTime">
+  </div>
+  <div class="col-md-6">
+    How many items? <input type="textbox" ng-model="numOfItems">
+
+  </div>
+</div>
+<button ng-click="generateRandomItems()"> Generate items </button>
+
+    <p>
+    <ul>
+      <li ng-repeat="item in randomlyGeneratedItems track by $index"> {{item.name}} : {{item.time}} </li>
+
+    </ul>
+  </p>
+</div>
+<div id="tempholder"> </div>
+<button ng-click="deleteAllLists()" class="btn btn-danger"> Clear Cached Lists </button>
+<button ng-click="toggleCachedList()" ng-show="!showReloadTextArea" class="btn btn-danger" > Reload Previous List </button>
+
+<div ng-show="showReloadTextArea">
+
+  <div>Load Saved Json Below </div><input type="textbox" id="reloadTextArea" class="reloadTextArea" ng-model="previousJson"  > </textarea>
+  <button ng-click="reloadJson()" class="btn btn-danger"> Reload </button>
+  <button ng-click="toggleCachedList()" class="btn btn-danger"> Hide </button>
+</div>
+</div>
+</div>
+
+</body>
+<script src="/Scripts/jquery-1.10.2.min.js"></script>
+<script src="/Scripts/angular.min.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+<script src="/Scripts/common.js"></script>
+<script src="/Scripts/randomizer.js"></script>
+
+</html>
