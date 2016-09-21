@@ -21,15 +21,21 @@ app.controller('randomCtrl', function($scope) {
     return clonedArray;
   }
 
-  var defaultItems = [{position: 1, name: 'First', priority: 2}, {position: 2, name: 'Second', priority: 1}];
+  var defaultItems = [{id: 1, name: 'First', priority: 2}, {id: 2, name: 'Second', priority: 1}];
 
 
   $scope.lists = localStorage.getObject('savedLists');
+
+
+  $scope.lists = JSON.parse(JSON.stringify($scope.lists).split('"position":').join('"id":'));
+
 
   if($scope.lists == null || $scope.lists.length == 0) {
     $scope.lists = [];
     $scope.lists.push({listId: '0', listName: 'Default List', items: cloneArray(defaultItems)});
   }
+
+
   $scope.turnOnAdd = false;
   var mode = '';
   $scope.toggleAdd = function() {
@@ -51,12 +57,15 @@ app.controller('randomCtrl', function($scope) {
 
 
 
-
+ $scope.selectedIndex = null;
  $scope.selectedRow = null;  // initialize our variable to null
  $scope.setClickedRow = function(index){  //function that sets the value of selectedRow to current index
+
     $scope.selectedRow = index;
+
     $scope.hideButtons = false;
  };
+
 
  $scope.showReloadTextArea = false;
 
@@ -75,7 +84,6 @@ app.controller('randomCtrl', function($scope) {
      currentItems = $scope.lists[$scope.selectedListId].items;
 
  };
-
  $scope.copyClipboard = function() {
    var pastedText = JSON.stringify($scope.lists);
    var $temp = $("<input type='textbox' class='reloadTextArea'>");
@@ -151,12 +159,10 @@ app.controller('randomCtrl', function($scope) {
   {
     var item = [];
     var currentPriority = currentItems.length;
-    var currentPosition = 1;
+
     angular.forEach(currentItems, function(value, key) {
-      value.priority = currentPriority;
-      value.position = currentPosition;
-      currentPriority--;
-      currentPosition++;
+      //value.priority = currentPriority;
+      //currentPriority--;
 
     }, item);
   };
@@ -187,21 +193,49 @@ app.controller('randomCtrl', function($scope) {
     }
   };
   $scope.addRow = function() {
-    currentItems.push({ 'position':currentItems.length+1, 'name': $scope.newRecord, 'priority': 1});
+    currentItems.push({ 'id':currentItems.length+1, 'name': $scope.newRecord, 'priority': 1});
     $scope.reorderPriorities();
     $scope.saveItems();
     $scope.newRecord = '';
   };
-  $scope.equalWeight = function() {
-
-
-    for(i = 0; i < currentItems.length; i++)
+  $scope.chosenWeight = "D";
+  $scope.setWeight = function() {
+    if($scope.chosenWeight == "E")
     {
-      currentItems[i].priority = 1;
+      for(i = 0; i < currentItems.length; i++)
+      {
+        currentItems[i].priority = 1;
+      }
+    }
+    else if($scope.chosenWeight=="I")
+    {
 
+      for(i = 0; i < currentItems.length; i++)
+      {
+        currentItems[i].priority = i+1;
+      }
+    }
+    else
+    {
+      for(i = 0; i < currentItems.length; i++)
+      {
+        currentItems[i].priority = currentItems.length - i;
+      }
     }
 
   }
+
+
+
+  $scope.sortItems = function() {
+    currentItems = currentItems.sort(function(x,y) {
+        if($scope.chosenSort=="A")
+          return x.priority - y.priority;
+        else
+          return y.priority - x.priority;
+    });
+  };
+
   $scope.generateRandomItems = function() {
 
 

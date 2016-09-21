@@ -66,6 +66,22 @@ button {
 body {
   background-color:  lightgray;
 }
+
+
+.box {
+  margin-left: auto;
+  margin-right: auto;
+   width: 500px;
+}
+.weight {
+  border: 1px solid;
+  text-align: left;
+
+  padding-bottom: 5px;
+  
+  height: 150px;
+
+}
 /*table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

@@ -57,7 +57,7 @@
         <th > Priority </th>
       </tr>
       <tr ng-repeat="item in lists[selectedListId].items track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
-        <td class="numbertextbox"> <input type="number" class="form-control" ng-model="item.position"> </td>
+        <td class="numbertextbox"> {{$index+1}} </td>
         <td> <input type="textbox" class="form-control" ng-model="item.name"> </td>
         <td class="numbertextbox"> <input type="number" class="form-control" ng-model="item.priority"> </td>
        </tr>
@@ -78,10 +78,49 @@
     <button ng-click="copyClipboard()" class="btn btn-primary"> Copy List to Clipboard </button>
   <button ng-click="undoChanges()" class="btn btn-primary"> Undo Changes </button>
   <button ng-click="removeItem()" class="btn btn-primary"> Remove Item </button>
-  <button ng-click="equalWeight()" class="btn btn-primary"> Set Equal Weight </button>
+
+</br>
+
+<div class="row box">
 
 
+<div class="col-lg-6 weight">
+  <label> <u> Weight </u> </label> </br>
+  <label>
+  <input type="radio" ng-model="chosenWeight" value="E">
+  Equal
+</label><br/>
+<label>
+  <input type="radio" ng-model="chosenWeight" value="I">
+  Increasing
+</label><br/>
+<label>
+  <input type="radio" ng-model="chosenWeight" value="D">
+  Decreasing
+</label>
+<br/>
+<button ng-click="setWeight()" class="btn btn-primary"> Set Weight </button>
+</div>
 
+<div class="col-lg-6 weight">
+  <label> <u> Sort </u> </label> </br>
+  <label>
+  <input type="radio" ng-model="chosenSort" value="A">
+  Ascending
+</label></br>
+<label>
+<input type="radio" ng-model="chosenSort" value="D">
+Descending
+</label></br>
+<label>
+<input type="radio" ng-model="chosenSort" value="N">
+Neither </label>
+<br/>
+
+<button ng-click="sortItems()" class="btn btn-primary"> Sort </button>
+</div>
+
+</div>
 </p>
 New  item <input type="textbox" ng-model="newRecord" >
 <button ng-click="addRow()" class="btn btn-primary"> Add Row </button>
