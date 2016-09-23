@@ -11,7 +11,14 @@ $(document).ready(function() {
 var app = angular.module('randomApp', []);
 
 
-app.controller('randomCtrl', function($scope) {
+app.controller('randomCtrl', function($scope, $timeout) {
+
+  $scope.isIos = false;
+  var p = navigator.platform;
+  if( p === 'iPad' || p === 'iPhone' || p === 'iPod' ) {
+     $scope.isIos = true;
+  }
+
 
   function cloneArray(originalArray)
   {
@@ -192,6 +199,72 @@ app.controller('randomCtrl', function($scope) {
       $scope.reorderPriorities();
     }
   };
+
+  $scope.moveToBottom = function() {
+      currentItems[$scope.selectedRow].priority = 0;
+      $scope.chosenSort = "D";
+      $scope.sortItems();
+      $scope.selectedRow = currentItems.length-1;
+  }
+  $scope.moveToTop = function() {
+      maxpriority = currentItems.length;
+      for(i=0;i<currentItems.length;i++)
+      {
+        if(currentItems[i].priority > maxpriority)
+          maxpriority = currentItems[i].priority;
+      }
+      currentItems[$scope.selectedRow].priority = maxpriority+1;
+      $scope.chosenSort = "D";
+      $scope.sortItems();
+      $scope.selectedRow = 0;
+  }
+
+  $scope.singleClickUp = function() {
+    if ($scope.clicked) {
+        $scope.cancelClick = true;
+        return;
+    }
+
+    $scope.clicked = true;
+
+    $timeout(function () {
+        if ($scope.cancelClick) {
+            $scope.cancelClick = false;
+            $scope.clicked = false;
+            return;
+        }
+
+        $scope.moveUp();
+
+        //clean up
+        $scope.cancelClick = false;
+        $scope.clicked = false;
+    }, 500);
+  }
+
+  $scope.singleClickDown = function() {
+    if ($scope.clicked) {
+        $scope.cancelClick = true;
+        return;
+    }
+
+    $scope.clicked = true;
+
+    $timeout(function () {
+        if ($scope.cancelClick) {
+            $scope.cancelClick = false;
+            $scope.clicked = false;
+            return;
+        }
+
+        $scope.moveDown();
+
+        //clean up
+        $scope.cancelClick = false;
+        $scope.clicked = false;
+    }, 500);
+  }
+
   $scope.addRow = function() {
     currentItems.push({ 'id':currentItems.length+1, 'name': $scope.newRecord, 'priority': 1});
     $scope.reorderPriorities();
@@ -199,6 +272,8 @@ app.controller('randomCtrl', function($scope) {
     $scope.newRecord = '';
   };
   $scope.chosenWeight = "D";
+
+
   $scope.setWeight = function() {
     if($scope.chosenWeight == "E")
     {
@@ -224,7 +299,6 @@ app.controller('randomCtrl', function($scope) {
     }
 
   }
-
 
 
   $scope.sortItems = function() {

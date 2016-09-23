@@ -65,8 +65,8 @@
       </table>
     </td>
     <td ng-hide="hideButtons">
-      <button ng-click="moveUp()" class="btn btn-primary"> &#8593; </button>
-      <button ng-click="moveDown()" class="btn btn-primary"> &#8595; </button>
+      <button ng-click="singleClickUp()" ng-dblclick="moveToTop()" class="btn btn-primary"> &#8593; </button>
+      <button ng-click="singleClickDown()" ng-dblclick="moveToBottom()" class="btn btn-primary"> &#8595; </button>
     </td>
   </tr>
 
@@ -78,6 +78,8 @@
     <button ng-click="copyClipboard()" class="btn btn-primary"> Copy List to Clipboard </button>
   <button ng-click="undoChanges()" class="btn btn-primary"> Undo Changes </button>
   <button ng-click="removeItem()" class="btn btn-primary"> Remove Item </button>
+  <button ng-click="moveToBottom()" class="btn btn-primary" ng-show="isIos"> Move to Bottom </button>
+  <button ng-click="moveToTop()" class="btn btn-primary" ng-show="isIos"> Move to Top </button>
 
 </br>
 
