@@ -12,8 +12,8 @@
   <script src="/Scripts/news.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
         <link href="css/news.css" rel="stylesheet">
 
 </head>
@@ -45,7 +45,7 @@
 <div class="container-fluid">
     <div class="row sitesection">
       <div class="col-lg-4 box text-center">
-        <select class="btn btn-success linkbutton" ng-model="selectedSites[0]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(1, selectedSites[0].id)">
+        <select class="btn btn-success linkbutton" ng-model="selectedSites[0]" ng-options="site as site.name for site in websites track by site.id" ng-change="changeList(1, selectedSites[0].id)">
         </select>
         <a href="{{selectedSites[0].url | trustAsResourceUrl}}" target="_blank"> Go </a>
          <div  ng-show="includeIframes">
@@ -53,7 +53,7 @@
       </div>
         </div>
        <div class="col-lg-4 box text-center">
-         <select class="btn btn-success linkbutton" ng-model="selectedSites[1]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(2, selectedSites[1].id)">
+         <select class="btn btn-success linkbutton" ng-model="selectedSites[1]" ng-options="site as site.name for site in websites track by site.id" ng-change="changeList(2, selectedSites[1].id)">
          </select>
          <a href="{{selectedSites[1].url | trustAsResourceUrl}}" target="_blank"> Go </a>
          <div  ng-show="includeIframes">
@@ -61,7 +61,7 @@
         </div>
       </div>
         <div class="col-lg-4 box text-center">
-          <select class="btn btn-success linkbutton" ng-model="selectedSites[2]" ng-options="site as site.name for site in projects track by site.id"
+          <select class="btn btn-success linkbutton" ng-model="selectedSites[2]" ng-options="site as site.name for site in websites track by site.id"
           ng-change="changeList(3, selectedSites[2].id)">
           </select>
           <a href="{{selectedSites[2].url | trustAsResourceUrl}}" target="_blank"> Go </a>
@@ -75,7 +75,7 @@
   <h2 class="text-center"> Manage Bookmarks </h2>
     <table class="table" id="choicetable">
       <tr> <th> Site </th><th> Url </th> <tr>
-        <tr ng-repeat="site in projects track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
+        <tr ng-repeat="site in websites track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
           <td> <a href="{{site.url || trustAsResourceUrl}}" target="_blank">  <span class="glyphicon glyphicon-link"></span></a> <input type="textbox" ng-model="site.name"  ng-change="positionChange(site.position)"/>
           </td>
           <td><input type="textbox" ng-model="site.url"  ng-change="positionChange(site.position)"/> </td>

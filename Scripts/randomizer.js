@@ -20,6 +20,10 @@ app.controller('randomCtrl', function($scope, $timeout) {
   }
 
 
+
+
+
+
   function cloneArray(originalArray)
   {
     var clonedArray = $.map(originalArray, function (obj) {

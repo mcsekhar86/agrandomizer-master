@@ -1,10 +1,54 @@
+<!DOCTYPE html>
 <html>
-<head> <title> Angular JS List Randomizer </title>
-</head>
-<body>
-   <h1> This source code contains a Angular JS list randomizer intended for personal use. </1>
+  <head>
+    <meta charset="UTF-8">
+    <title>The web site of Barmy Devonian </title>
+    <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
 
-     <a href="randomizer.html"> Link to randomizer </a>
+    <style>
+    #main {
+    background-color: lightgray;
+}
 
-</body>
+.clear:after {
+    clear: both;
+    display: table;
+    content: "";
+}
+</style>
+  </head>
+  <body>
+    <h1 class="text-center">Welcome to Barmy Devonian's Angular JS website!</h1>
+
+
+
+    <div class="container-fluid" id="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+    <h2 class="text-center"><a href="newnews.html"> Here's a news feed randomizer </a> </h2> <br>
+
+    <iframe src="newnews.html" width="100%" height="750px"> </iframe>
+  </div>
+
+    <div class="col-md-6">
+      <h2 class="text-center"> <a href="randomizer.html"> A simple list randomizer </a> </h2><br>
+
+      <iframe src="randomizer.html" width="100%" height="750px"> </iframe>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<script src="/Scripts/jquery-1.10.2.min.js"></script>
+  <script src="Scripts/bootstrap.min.js"> </script>
+  </body>
 </html>

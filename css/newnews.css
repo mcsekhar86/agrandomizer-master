@@ -1,0 +1,63 @@
+.jumbotron {
+  background-color: darkblue;
+  color: white;
+  height: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 0px;
+}
+
+
+.lead {
+  color: orange;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#maincontent {
+  background-color: lightblue;
+  min-height: 70%;
+}
+
+#bookmarks {
+  background-color: orange;
+}
+
+.outer {
+  background-color: lightgray;
+}
+.box {
+  border-color: lightgreen;
+  border-style: solid;
+  border-width: thin;
+}
+
+.linktitlebox {
+  width: 85%;
+}
+.sitename {
+  width: 100%;
+}
+@media only screen and (max-device-width: 480px) {
+.multiplier {
+  width: 50px;
+}
+}
+@media only screen and (min-device-width: 480px) {
+.multiplier {
+  width: 100px;
+}
+}
+
+input[type="textbox"] {
+  background-color: cyan;
+}
+.highlight {
+background-color: red !important;
+}
+#choicetable > thead {
+  background-color: #5cb85c;
+  color: white;
+
+}

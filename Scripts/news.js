@@ -8,18 +8,18 @@ app.controller('newsCtrl', function($scope) {
 
   var prevPrefs = localStorage.getObject('sitePrefs');
 
-  if(prevPrefs != null)
+  if(prevPrefs !== null)
   {
-    $scope.projects = prevPrefs;
+    $scope.websites = prevPrefs;
   }
   else {
-      $scope.projects = [
+      $scope.websites = [
 
         {
             "id" : 1,
             "name" : "CNN",
             "url" : "http://www.cnn.com",
-            "position" : 1
+            "priority": 1
 
         },
 
@@ -27,48 +27,49 @@ app.controller('newsCtrl', function($scope) {
             "id" : 2,
             "name" : "BBC News",
             "url" : "http://www.bbc.com",
-            "position" : 2
+            "priority" : 1
 
         },
         {
             "id" : 3,
             "name" : "NY Times",
             "url" : "http://www.nytimes.com",
-            "position" : 3
+            "priority" : 1
         },
         {
             "id" : 4,
             "name" : "The Mirror",
             "url" : "http://www.mirror.co.uk",
-
+            "priority" : 1
         },
         {
             "id" : 5,
             "name" : "NY Post",
             "url" : "http://www.nypost.com",
-
+            "priority" : 1
         },
         {
             "id" : 6,
             "name" : "Daily Mail",
             "url" : "http://www.dailymail.co.uk",
+            "priority" : 1
 
         }];
       }
  $scope.includeIframes = false;
  $scope.loadRandomSite = function() {
-    var randomInt = Math.floor((Math.random() * $scope.projects.length));
-    window.open($scope.projects[randomInt].url);
+    var randomInt = Math.floor((Math.random() * $scope.websites.length));
+    window.open($scope.websites[randomInt].url);
  };
  $scope.allowRefresh = false;
  function findSite(siteNum)
  {
-   for(x = 0; x < $scope.projects.length; x++)
+   for(x = 0; x < $scope.websites.length; x++)
    {
-     var curPos = $scope.projects[x].position;
+     var curPos = $scope.websites[x].position;
      if(curPos !== undefined && curPos == siteNum)
      {
-       return $scope.projects[x];
+       return $scope.websites[x];
      }
    }
  }
@@ -100,26 +101,26 @@ $scope.toggleIframes = function() {
  $scope.selectedSites.push(findSite(2));
  $scope.selectedSites.push(findSite(3));
 
-  /*document.getElementById('src'+$scope.currentSite).src = $scope.projects[$scope.currentSite].url;*/
+  /*document.getElementById('src'+$scope.currentSite).src = $scope.websites[$scope.currentSite].url;*/
   $scope.positionChange = function(position) {
-    localStorage.setObject('sitePrefs',$scope.projects);
-    $('#site'+position).html('<iframe src="'+$scope.projects[$scope.currentSite-1].url+'"> Stand By </iframe>');
+    localStorage.setObject('sitePrefs',$scope.websites);
+    $('#site'+position).html('<iframe src="'+$scope.websites[$scope.currentSite-1].url+'"> Stand By </iframe>');
   };
 
 
   $scope.changeList = function(position,siteId)
   {
     window.stop();
-    $scope.projects[siteId-1].position = position;
+    $scope.websites[siteId-1].position = position;
 
-    for(i=0; i < $scope.projects.length; i++)
+    for(i=0; i < $scope.websites.length; i++)
     {
-      if($scope.projects[i].position == position && $scope.projects[i].id != siteId)
+      if($scope.websites[i].position == position && $scope.websites[i].id != siteId)
 
       {
-        $scope.projects[i].position = "";
+        $scope.websites[i].position = "";
       }
-      else if ($scope.projects[i].id == siteId && $scope.projects[i].position != position)
+      else if ($scope.websites[i].id == siteId && $scope.websites[i].position != position)
       {
         $scope.selectedSites[position-1] = "";
       }
@@ -128,7 +129,7 @@ $scope.toggleIframes = function() {
     if($scope.includeIframes) {
       setLink($("#site"+position),findSite(position).id-1,false);
     }
-    localStorage.setObject('sitePrefs',$scope.projects);
+    localStorage.setObject('sitePrefs',$scope.websites);
 
 
   }
@@ -136,15 +137,15 @@ $scope.toggleIframes = function() {
   function setLink(obj, projectId, insert)
   {
     if(insert)
-      obj.append('<iframe src="'+$scope.projects[projectId].url+'"> Stand By </iframe>');
+      obj.append('<iframe src="'+$scope.websites[projectId].url+'"> Stand By </iframe>');
     else {
-      obj.html('<iframe src="'+$scope.projects[projectId].url+'"> Stand By </iframe>');
+      obj.html('<iframe src="'+$scope.websites[projectId].url+'"> Stand By </iframe>');
     }
   }
 
   window.onLoad = function() {
     $scope.currentSite++;
-      $('#site'+$scope.currentSite).append('<iframe src="'+$scope.projects[$scope.selectedSites[$scope.currentSite-1]-1].url+'" onload="onLoad()"> Stand By </iframe>');
+      $('#site'+$scope.currentSite).append('<iframe src="'+$scope.websites[$scope.selectedSites[$scope.currentSite-1]-1].url+'" onload="onLoad()"> Stand By </iframe>');
   };
 
       $scope.selectedRow = "";
@@ -152,24 +153,25 @@ $scope.toggleIframes = function() {
         $scope.selectedRow = index;
       };
 
+    
 
     $scope.addRow = function() {
 
 
-      $scope.projects.push(  {
-            "id" : $scope.projects[$scope.projects.length-1].id + 1,
+      $scope.websites.push(  {
+            "id" : $scope.websites[$scope.websites.length-1].id + 1,
             "name" : "",
             "url" : "",
             "position" : ""
 
         });
-        console.log(JSON.stringify($scope.projects));
-        localStorage.setObject('sitePrefs',$scope.projects);
+        console.log(JSON.stringify($scope.websites));
+        localStorage.setObject('sitePrefs',$scope.websites);
 
     };
 
     $scope.deleteRow = function() {
-      $scope.projects.splice($scope.selectedRow, 1);
+      $scope.websites.splice($scope.selectedRow, 1);
     }
 
     $scope.clearPreviousCache = function() {
@@ -188,16 +190,16 @@ $scope.toggleIframes = function() {
     function setupInterval() {
       $scope.currentTimer =  setInterval(function(){
           window.stop();
-          console.log('Before '+ JSON.stringify($scope.projects));
+          console.log('Before '+ JSON.stringify($scope.websites));
           var randomWindow = Math.floor((Math.random() * 3)+1);
-           var randomInt = Math.floor((Math.random() * $scope.projects.length));
-           console.log('Randomly want to change ' + randomWindow + ' to '  + $scope.projects[randomInt].name);
+           var randomInt = Math.floor((Math.random() * $scope.websites.length));
+           console.log('Randomly want to change ' + randomWindow + ' to '  + $scope.websites[randomInt].name);
 
-           for(i=0; i<$scope.projects.length;i++) {
-             if($scope.projects[i].position == randomWindow)
-                $scope.projects[i].position = "";
+           for(i=0; i<$scope.websites.length;i++) {
+             if($scope.websites[i].position == randomWindow)
+                $scope.websites[i].position = "";
            }
-           $scope.projects[randomInt].position = randomWindow;
+           $scope.websites[randomInt].position = randomWindow;
            $scope.selectedSites[randomWindow-1] = findSite(randomWindow);
            if($scope.includeIframes)
            {
@@ -207,7 +209,7 @@ $scope.toggleIframes = function() {
 
 
 
-          console.log('After ' + JSON.stringify($scope.projects));
+          console.log('After ' + JSON.stringify($scope.websites));
           console.log(JSON.stringify($scope.selectedSites));
 
 

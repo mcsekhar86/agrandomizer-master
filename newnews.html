@@ -1,0 +1,84 @@
+<html>
+<head> <title> News mashup </title>
+<script>
+  window.onerror = function() {
+    alert("Error caught");
+  };
+  </script>
+  <script src="/Scripts/angular.min.js"></script>
+  <script src="/Scripts/common.js"></script>
+  <script src="/Scripts/newnews.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link href="css/newnews.css" rel="stylesheet">
+
+</head>
+
+
+
+<body ng-app="newsApp">
+  <div ng-controller="newsCtrl">
+    <div class="page-heading text-center" > <h3> Barmy Devonian's Angular JS Site </h3> </div>
+<div class="jumbotron jumbotron-fluid">
+
+<div class="container">
+<div class="text-center">
+  <h1> Site Bookmarker </h1>
+  <p class="lead hidden-xs"> Use this site to randomize sites you visit during the day. Sites you visit more often are given higher priority. Sites randomly chosen are randomly selected less often. </p>
+  <p class="lead visible-xs"> Use this site to randomly visit chosen bookmarks </p>
+  <button class="btn btn-success btn-lg" ng-click="loadRandomSite()"> Open Random Site </button>
+</div>
+</div>
+
+</div>
+<div class="container-fluid outer">
+<div class="container" id="bookmarks">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table" id="choicetable">
+        <thead> <tr> <th> SITE <a href="#"<i ng-class="toggleSiteSort()" ng-class="siteSortClass"></i></a></th>
+          <th> URL </th>
+          <th ng-show="showCurrentMultipier"> Likelihood </th>
+        </tr> </thead>
+
+          <tr ng-repeat="site in websites track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
+            <td> <a href="{{site.url || trustAsResourceUrl}}" target="_blank" ng-click="navigateToSite($index)">  <span class="glyphicon glyphicon-link"></span></a>
+              <input type="textbox" class="linktitlebox" ng-change="saveBookmarks()" ng-model="site.name"/>
+            </td>
+            <td><input type="textbox" class="sitename" ng-change="saveBookmarks()" ng-model="site.url"/> </td>
+            <td  ng-show="showCurrentMultipier"><input type="number" class="multiplier" ng-model="site.priority"/> </td>
+
+          </tr>
+      </table>
+
+      <div class="text-center">
+        <div><label>  <input type="checkbox" ng-model="showCurrentMultipier" class="multiplier" /> Show Current Multipler? </label></div>
+        <button ng-click="addRow()" class="btn btn-primary"> Add Bookmark </button>
+        <button ng-click="deleteRow()" class="btn btn-primary"> Delete Bookmark </button>
+<button ng-click="saveBookmarks()" class="btn btn-primary"> Save Bookmarks </button>
+      <button ng-click="clearPreviousCache()" class="btn btn-primary"> Clear Cache </button>
+
+    </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+<div class="container-fluid" id="maincontent">
+
+    <div class="row">
+        <div ng-repeat="panel in panels" class="col-md-4 col-xs-12 box">
+
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="/Scripts/jquery-1.10.2.min.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+</body>
+
+</html>

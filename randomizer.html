@@ -15,18 +15,20 @@
 </head>
 
 <body>
-
+  <div ng-controller="randomCtrl">
+  <div class="container-fluid" id="title"><div class="page-heading text-center" > <h3> Barmy Devonian's Angular JS Site </h3> </div></div>
   <div class="jumbotron jumbotron-fluid">
   <div class="container-fluid text-center">
     <h1 class="display-3"> List Randomizer</h1>
-    <p class="lead"> Use this site to randomize your list. Assign a priority to each item to allow varying probabilities.
+    <p class="lead  hidden-xs"> Use this site to randomize your list. Assign a priority to each item to allow varying probabilities.
       Lists are stored on your browser and will be available as long as you don't clear your cache!
       This is a work in progress test application and my first app using AngularJS.  </p>
+      <p class="lead visible-xs"> Use this site to create and randomize a list </p>
 
   </div>
 </div>
 
-<div ng-controller="randomCtrl">
+
 <div class="container text-center">
 
 
