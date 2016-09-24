@@ -32,8 +32,8 @@ app.controller('newsCtrl', function($scope) {
         },
         {
             "id" : 3,
-            "name" : "Fox News",
-            "url" : "http://www.foxnews.com",
+            "name" : "NY Times",
+            "url" : "http://www.nytimes.com",
             "position" : 3
         },
         {
@@ -66,7 +66,7 @@ app.controller('newsCtrl', function($scope) {
    for(x = 0; x < $scope.projects.length; x++)
    {
      var curPos = $scope.projects[x].position;
-     if(curPos != undefined && curPos == siteNum)
+     if(curPos !== undefined && curPos == siteNum)
      {
        return $scope.projects[x];
      }
@@ -86,9 +86,6 @@ $scope.toggleIframes = function() {
      setLink($("#site1"),findSite(1).id-1,false);
      setLink($("#site2"),findSite(2).id-1,false);
      setLink($("#site3"),findSite(3).id-1,false);
-     setTimeout(function() {
-        window.stop();
-     },10000);
    }
 };
 
@@ -105,6 +102,7 @@ $scope.toggleIframes = function() {
 
   /*document.getElementById('src'+$scope.currentSite).src = $scope.projects[$scope.currentSite].url;*/
   $scope.positionChange = function(position) {
+    localStorage.setObject('sitePrefs',$scope.projects);
     $('#site'+position).html('<iframe src="'+$scope.projects[$scope.currentSite-1].url+'"> Stand By </iframe>');
   };
 
@@ -166,6 +164,7 @@ $scope.toggleIframes = function() {
 
         });
         console.log(JSON.stringify($scope.projects));
+        localStorage.setObject('sitePrefs',$scope.projects);
 
     };
 

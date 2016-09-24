@@ -6,58 +6,21 @@
   </script>
   <script src="/Scripts/jquery-1.10.2.min.js"></script>
 
-  <script src="/Scripts/bootstrap.min.js"></script>
+
   <script src="/Scripts/angular.min.js"></script>
   <script src="/Scripts/common.js"></script>
   <script src="/Scripts/news.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-<style>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="css/news.css" rel="stylesheet">
 
-.highlight {
-background-color: red !important;
-}
-iframe {
-
--webkit-transform:scale(1);
--moz-transform-scale(1);
-width: 100%;
-height: 90%;
-
-
-}
-
-
-.box {
-  border-color: lightgreen;
-  border-style: solid;
-  border-width: thin;
-  height: 50px;
-
-}
-
-.jumbotron {
-    padding: 0.5em 0.6em;
-    height: 150px;
-
-    margin-bottom: 0px;
-
-}
-
-.row .sitesection {
-  padding-top: 0px;
-}
-
-.table {
-  width: 20%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid;
-  background-color: lightgray;
-}
-</style>
 </head>
+
+
+
+<body ng-app="newsApp">
 <div class="jumbotron jumbotron-fluid">
 <div class="text-center">
   <h1 class="display-3"> Site Bookmarker </h1>
@@ -65,50 +28,58 @@ height: 90%;
 
 </div>
 </div>
-
-
-<body ng-app="newsApp">
   <div ng-controller="newsCtrl">
-  <div class="text-center">
-    <input type="checkbox" ng-model="includeIframes" ng-click="toggleIframes()"> Include iframes </input>
-    <input type="checkbox" ng-model="allowRefresh" ng-click="toggleRefresh()"> Allow refresh </input>
-    Refresh Interval: <input type="textbox" ng-model="refreshInterval" ng-blur="changeRefresh()"/>
+  <div class="row text-center">
+    <div class="col-md-12">
+      <div class="col-sm-12">
+    <input type="checkbox" ng-model="includeIframes" ng-click="toggleIframes()"/> Include iframes </div>
+    <div class="col-sm-12">
+    <input type="checkbox" ng-model="allowRefresh" ng-click="toggleRefresh()"/> Allow refresh </div>
+    <div class="col-sm-12">
+    Refresh Interval: <input type="textbox" ng-model="refreshInterval" ng-blur="changeRefresh()"/>  </div>
+    <div class="col-sm-12">
     <button class="btn btn-success" ng-click="loadRandomSite()"> Load a random site</button>
+  </div>
+  </div>
   </div>
 <div class="container-fluid">
     <div class="row sitesection">
-      <div class="col-lg-4 box">
-        <select class="btn btn-success" ng-model="selectedSites[0]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(1, selectedSites[0].id)">
+      <div class="col-lg-4 box text-center">
+        <select class="btn btn-success linkbutton" ng-model="selectedSites[0]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(1, selectedSites[0].id)">
         </select>
-        <a href="{{selectedSites[0].url | trustAsResourceUrl}}"> Go </a>
+        <a href="{{selectedSites[0].url | trustAsResourceUrl}}" target="_blank"> Go </a>
          <div  ng-show="includeIframes">
         <div id="site1"> </div>
       </div>
         </div>
-       <div class="col-lg-4 box">
-         <select class="btn btn-success" ng-model="selectedSites[1]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(2, selectedSites[1].id)">
+       <div class="col-lg-4 box text-center">
+         <select class="btn btn-success linkbutton" ng-model="selectedSites[1]" ng-options="site as site.name for site in projects track by site.id" ng-change="changeList(2, selectedSites[1].id)">
          </select>
-         <a href="{{selectedSites[1].url | trustAsResourceUrl}}"> Go </a>
+         <a href="{{selectedSites[1].url | trustAsResourceUrl}}" target="_blank"> Go </a>
          <div  ng-show="includeIframes">
            <div id="site2"> </div>
         </div>
       </div>
-        <div class="col-lg-4 box">
-          <select class="btn btn-success" ng-model="selectedSites[2]" ng-options="site as site.name for site in projects track by site.id"
+        <div class="col-lg-4 box text-center">
+          <select class="btn btn-success linkbutton" ng-model="selectedSites[2]" ng-options="site as site.name for site in projects track by site.id"
           ng-change="changeList(3, selectedSites[2].id)">
           </select>
-          <a href="{{selectedSites[2].url | trustAsResourceUrl}}"> Go </a>
+          <a href="{{selectedSites[2].url | trustAsResourceUrl}}" target="_blank"> Go </a>
            <div  ng-show="includeIframes">
               <div id="site3"> </div>
               </div>
        </div>
     </div>
 
+<div class="bookmarks">
+  <h2 class="text-center"> Manage Bookmarks </h2>
     <table class="table" id="choicetable">
       <tr> <th> Site </th><th> Url </th> <tr>
         <tr ng-repeat="site in projects track by $index" ng-class="{'highlight':$index == selectedRow}" ng-click="setClickedRow($index)">
-          <td> <input type="textbox" ng-model="site.name"  ng-change="positionChange(site.position)"></td>
-          <td> <input type="textbox" ng-model="site.url"  ng-change="positionChange(site.position)"></td>
+          <td> <a href="{{site.url || trustAsResourceUrl}}" target="_blank">  <span class="glyphicon glyphicon-link"></span></a> <input type="textbox" ng-model="site.name"  ng-change="positionChange(site.position)"/>
+          </td>
+          <td><input type="textbox" ng-model="site.url"  ng-change="positionChange(site.position)"/> </td>
+
         </tr>
     </table>
     <div class="text-center"> <button ng-click="addRow()" class="btn btn-primary"> Add Row </button>
@@ -116,10 +87,10 @@ height: 90%;
     <button ng-click="clearPreviousCache()" class="btn btn-primary"> Clear Cache </button> </div>
  </div>
 
-
+</div>
 
 </div>
-</div>
+
 
 
 </body>
